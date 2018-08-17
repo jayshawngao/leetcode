@@ -8,12 +8,14 @@ public class BinarySearch_1 {
 			return -1;
 		if (a.length == 1)
 			return a[0];
+		if (a[0] < a[1]) {
+			return a[0];
+		}
+		if (a[a.length - 1] < a[a.length - 2]){
+			return a[a.length - 1];
+		}
 		int left = 0;
 		int right = a.length - 1;
-		if (a[left] < a[left + 1])
-			return left;
-		if (a[right] < a[right - 1])
-			return right;
 		while (left <= right) {
 			int mid = left + (right - left) / 2;
 			if (a[mid] < a[mid - 1] && a[mid] < a[mid + 1])

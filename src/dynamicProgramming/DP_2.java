@@ -1,57 +1,56 @@
 package dynamicProgramming;
 
-import java.util.Arrays;
 
 public class DP_2 {
 
-	/**
-	 * 
-	 * @param a
-	 *            Êı×Ö¾ØÕó
-	 * @return ´Ó×óÉÏ½Çµ½ÓÒÏÂ½ÇËù¾­ÀúµÄÊı×ÖºÍµÄ×îĞ¡Öµ
-	 */
-	public static int min(int[][] a) {
-		int[][] dp = new int[a.length][a[0].length];
-		dp[0][0]=a[0][0];
-		for(int i=1;i<dp.length;i++){
-			dp[i][0] = dp[i-1][0]+a[i][0];
-		}
-		for(int j=1;j<dp[0].length;j++){
-			dp[0][j] = dp[0][j-1]+a[0][j];
-		}
-		for(int i=1;i<dp.length;i++){
-			for(int j=1;j<dp[0].length;j++){
-				dp[i][j] = Math.min(dp[i-1][j],dp[i][j-1])+a[i][j];
-			}
-		}
-		return dp[dp.length-1][dp[0].length-1];
-	}
-	
-	// ºÍminµÄÇø±ğÔÚÓÚdp+1, ÎªÁË²âÊÔdp+1ÊÇ·ñÄÜ¼ò»¯±àÂë
-	public static int min2(int[][] a) {
-		// ×¢ÒâdpµÄ´óĞ¡
-		int[][] dp = new int[a.length+1][a[0].length+1];
-		for(int i=0;i<dp.length;i++){
-			for(int j=0;j<dp[0].length;j++){
-				if(i==0||j==0){
-					dp[i][j]=0;
-				// ÕâÀïµÄÁ½¸öelse if²»¼Ó¾Í»á´í,ÎªÊ²Ã´?
-				// ÒòÎªµ±i=1Ê±,¶ÔÓ¦×ÅÔ­Êı×éµÄµÚÒ»ĞĞ, ´ËÊ±Ö»ÄÜ´Ó×ó±ß¹ıÀ´¶ø²»ÄÜ´ÓÉÏÃæ¹ıÀ´, j==1Í¬Àí
-				}else if(i==1){
-					dp[i][j] =dp[i][j-1]+a[i-1][j-1];
-				}else if(j==1){
-					dp[i][j]=dp[i-1][j]+a[i-1][j-1];
-				}else{
-					dp[i][j] = Math.min(dp[i-1][j],dp[i][j-1])+a[i-1][j-1];
-				}
-			}
-		}
-		return dp[dp.length-1][dp[0].length-1];
-	}
-	
-	public static void main(String[] args) {
-		int[][]a = new int[][]{{1,3,5,9},{8,1,3,4},{5,0,6,1},{8,8,4,0}};
-		System.out.println(min(a));
-		System.out.println(min2(a));
-	}
+    /**
+     * @param a æ•°å­—çŸ©é˜µ
+     * @return ä»å·¦ä¸Šè§’åˆ°å³ä¸‹è§’æ‰€ç»å†çš„æ•°å­—å’Œçš„æœ€å°å€¼
+     */
+    public static int min(int[][] a) {
+        int[][] dp = new int[a.length][a[0].length];
+        dp[0][0] = a[0][0];
+        // åˆå§‹åŒ–ç¬¬ä¸€åˆ—
+        for (int i = 1; i < dp.length; i++) {
+            dp[i][0] = dp[i - 1][0] + a[i][0];
+        }
+        // åˆå§‹åŒ–ç¬¬ä¸€è¡Œ
+        for (int j = 1; j < dp[0].length; j++) {
+            dp[0][j] = dp[0][j - 1] + a[0][j];
+        }
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + a[i][j];
+            }
+        }
+        return dp[dp.length - 1][dp[0].length - 1];
+    }
+
+    // å’Œminçš„åŒºåˆ«åœ¨äºdp+1, ä¸ºäº†æµ‹è¯•dp+1æ˜¯å¦èƒ½ç®€åŒ–ç¼–ç ï¼Œç»“æœæ˜¯åè€Œå¤æ‚äº†
+    public static int min2(int[][] a) {
+        // æ³¨æ„dpçš„å¤§å°
+        int[][] dp = new int[a.length + 1][a[0].length + 1];
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                    // è¿™é‡Œçš„ä¸¤ä¸ªelse ifä¸åŠ å°±ä¼šé”™,ä¸ºä»€ä¹ˆ?
+                    // å› ä¸ºå½“i=1æ—¶,å¯¹åº”ç€åŸæ•°ç»„çš„ç¬¬ä¸€è¡Œ, æ­¤æ—¶åªèƒ½ä»å·¦è¾¹è¿‡æ¥è€Œä¸èƒ½ä»ä¸Šé¢è¿‡æ¥, j==1åŒç†
+                } else if (i == 1) {
+                    dp[i][j] = dp[i][j - 1] + a[i - 1][j - 1];
+                } else if (j == 1) {
+                    dp[i][j] = dp[i - 1][j] + a[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + a[i - 1][j - 1];
+                }
+            }
+        }
+        return dp[dp.length - 1][dp[0].length - 1];
+    }
+
+    public static void main(String[] args) {
+        int[][] a = new int[][]{{1, 3, 5, 9}, {8, 1, 3, 4}, {5, 0, 6, 1}, {8, 8, 4, 0}};
+        System.out.println(min(a));
+        System.out.println(min2(a));
+    }
 }

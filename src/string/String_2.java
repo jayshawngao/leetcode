@@ -20,7 +20,7 @@ public class String_2 {
 	
 	public static void main(String[] args) {
 		String s1="a中文bbb";
-		String s2="文中bab";
+		String s2="文中babb";
 		System.out.println(new String_2().judge(s1, s2));
 	}
 

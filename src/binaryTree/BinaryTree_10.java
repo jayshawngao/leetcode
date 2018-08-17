@@ -32,6 +32,9 @@ public class BinaryTree_10 {
 	}
 	
 	public int maxDistance(TreeNode root){
+		if (root == null) {
+			return 0;
+		}
 		return help(root)[0];
 	}
 	

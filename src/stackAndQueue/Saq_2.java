@@ -8,36 +8,27 @@ public class Saq_2<T> {
 	private Stack<T> stack1;
 	private Stack<T> stack2;
 	public Saq_2() {
-		stack1 = new Stack<>();
-		stack2 = new Stack<>();
+		stack1 = new Stack<>(); //用于入队
+		stack2 = new Stack<>(); //用于出队
 	}
 	
 	public void offer(T item){
-		if(stack1.isEmpty()){
-			while(!stack2.isEmpty()){
-				T temp = stack2.pop();
-				stack1.push(temp);
-			}
+		while (!stack2.isEmpty()) {
+			stack1.push(stack2.pop());
 		}
 		stack1.push(item);
 	}
 	
 	public T peek(){
-		if(stack2.isEmpty()){
-			while(!stack1.isEmpty()){
-				T temp = stack1.pop();
-				stack2.push(temp);
-			}
+		while (!stack1.isEmpty()) {
+			stack2.push(stack1.pop());
 		}
 		return stack2.peek();
 	}
 	
 	public T pop(){
-		if(stack2.isEmpty()){
-			while(!stack1.isEmpty()){
-				T temp = stack1.pop();
-				stack2.push(temp);
-			}
+		while (!stack1.isEmpty()) {
+			stack2.push(stack1.pop());
 		}
 		return stack2.pop();
 	}

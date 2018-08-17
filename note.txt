@@ -1,0 +1,402 @@
+DispatcherServlet -> doDispatcher
+MutipleResolver
+HandlerMapping#getHandler -> HandlerExecutionChain(Handler, HandlerInterceptor)
+HandlerAdapter#handle -> ModelAndView
+ViewResolver#resloveViewName(InternalResourceViewResolver, FreeMarker, Velocity) -> View
+View#render
+DispatcherServlet
+
+文件上传 Commons FileUpload
+MultiPartResolver -> MultiPartHttpServletRequest
+MultiPartFile
+
+核心关注点 横切关注点 业务无关， 为所有业务所公用的代码逻辑部分
+
+Aspect
+Advice
+Target
+JoinPoint
+PointCut
+
+@PointCut
+
+@Before
+@After
+@AfterReturning
+@AfterThrowing
+@Around
+
+@ResponseBody
+@RequestMapping
+
+
+@Component
+@Service
+@Controller
+@RequestMapping
+@ResponseBody
+@RequestVariable
+@Transactional
+@AutoWired
+
+PlatformTransactionManager -> DataSourceTransactionManager, HibernateTransactionManager
+
+@Transactional
+propagation -> required required_new support not_support mandatory never nested
+isolation 读未提交 读已提交 可重复读 串行化
+rollbackFor
+noRollbackFor
+readOnly
+timeout
+
+required required_new  support not_support never nested mandatory
+
+Spring
+$ 获取property
+# SPEL表达式
+
+filter 所有方法 一次 servlet
+interceptor controller方法 多次 spring preHandler postHandler afterCompletion
+
+interface
+ApplicationContextAware -> setApplicationContext
+InitializingBean -> afterPropertiesSet
+DisposableBean -> destroy
+FactoryBean -> getObject
+BeanPostProcessor -> postProcessorBeforeInitialization, postProcessorAfterInitialization
+BeanFactoryPostProcessor -> postProcessorBeanFactory
+
+事件通知
+ApplicationContext -> publishEvent
+ApplicationEvent
+ApplicationListener -> onApplicationEvent
+
+BeanFactory FactoryBean
+
+领导者 学习者 观察者
+
+追随者 -> 领导者 -> 尝试执行 -> 广播结果 -> ack -> commit
+
+zxid
+
+zab zookeeper atomic broadcast protocol
+proposal -> ack -> commit
+
+群首1崩溃 -> zxid最大 -> 学习proposal
+
+追随者 -> 完整snapshot, 缺失事务
+
+追随者
+观察者 不参与选举 提高读的吞吐量 跨数据中心部署
+
+加速日志写入：组提交 补白
+
+扩容 限流 静态化
+
+cat tac head tail nl
+
+局部性原理 磁盘预读 内存-磁盘以页为单位交换数据
+
+阻塞IO -> 系统调用 -> 阻塞
+非阻塞IO -> 系统调用 -> 未完成也立即返回
+IO多路复用 -> 阻塞在Selector -> 注册多个channel
+信号驱动IO -> 系统调用 -> 就绪回调函数
+异步IO -> 区别在于一个返回的是IO就绪，一个是IO完成
+
+水平触发 边缘触发
+
+线程阻塞和唤醒进入内核态
+
+cd mkdir rm head tail hostname ipconfig ping netstat clear ls mv cp touch chmod grep -E 搜索
+
+which 可执行文件 环境变量 完全匹配
+whereis 二进制文件 源文件 帮助文档 数据库索引 完全匹配
+locate 全部文件 数据库索引 部分匹配
+find 全部文件 磁盘
+
+which whereis locate find
+
+物理层 bit 数据链路层 帧 网络层 包 传输层 段 会话层 表示层 应用层
+网络接口层 网络层 传输层 应用层
+
+物理层：RJ45， IEEE802.3
+数据链路：PPP，VLAN
+网络层：IP、ICMP、ARP、RARP
+传输层：TCP、UDP
+会话层：SQL、RPC
+表示层：JPEG、MEPG
+应用层：FTP、WWW、HTTP、DNS、Telnet、SMTP、NFS
+
+A 0 1~127
+B 10 128~191
+C 110 192~
+D 1110
+
+ARP列表 -> 广播发送ARP请求， 单播发送ARP响应
+
+ICMP -> 因特网控制报文协议，用于在主机，路由器之间传递控制消息
+
+RJ45 IEEE802.3
+PPP VLAN
+IP ICMP ARP RARP
+TCP UDP
+SQL RPC
+JPEG MPEG
+FTP DNS HTTP WWW Tenlet
+
+RARP 广播发送RARP请求 -> RARP服务器返回可使用的IP地址
+
+三次握手 客户端 syn -> 服务器 ack syn -> 客服端 ack
+四次挥手 FIN -> ACK -> FIN -> ACK
+
+TCP 顺序控制（序列号） 重发机制（超时，高速重发） 流量控制（窗口探测） 拥塞机制（慢启动）
+TCP 可靠传输 UDP 实时性要求高
+TCP -> HTTP Telnet FTP SMTP POP3
+UDP -> DNS SNMP TFTP
+
+FTP21 SSH22 Telnet23 HTTP80 HTTPS443
+
+TCP 段 最大消息长度 MSS 三次握手确定
+
+滑动窗口 确认应答不再以段为单位，而是以窗口为单位
+
+高速重发 发送端主机连续3次收到同一个确认应答，就会对其所对应的数据进行重发。
+
+TCP流控制 由接收端决定 -> TCP首部中专门有一个字段用于通知窗口大小 -> 窗口探测包
+
+TCP拥塞控制 慢启动 -> 拥塞窗口 慢启动阈值 -> 超时重发：慢启动阈值设置为窗口大小一半，拥塞窗口设置为1 -> 高速重发：慢启动阈值设置为窗口大小一半，拥塞窗口设置为慢启动阈值+3MSS
+
+www.baidu.com
+DNS
+TCP三次握手
+IP 路由路径， ARP 查找MAC地址
+链路层 转发数据帧
+服务器 返回HTML
+客户端 解析HTML
+涉及 HTTP DNS TCP UDP IP ARP ICMP
+
+二次握手不可行 服务器资源浪费
+
+顺序控制 重发控制 流控制 拥塞控制
+
+http + ssl/tls -> 随机值+证书 -> 获得随机值，使用随机值对称加密
+
+TIME_WAIT 关闭时无法确定上一次请求和下一次请求
+
+HTTP组成 -> 状态码 头部 主体
+GET POST PUT HEAD DELETE OPTIONS TRACE CONNECT
+
+200
+206
+
+301 永久重定向
+302 临时重定向
+303 临时重定向 GET
+304 未修改
+307 303
+
+400 bad request
+401 需要认证
+403 访问拒绝
+404 未找到
+
+500 服务器错误
+503 服务器超载
+
+单例
+原型
+静态工厂
+抽象工厂
+责任链
+适配器
+桥接器
+观察者
+装饰者
+解释器
+迭代
+代理
+
+数据库引擎 innodb myIsam memory archive
+
+聚集索引 非聚集索引 表记录的排列顺序是否和索引顺序一致 B+ 叶子节点存储实际数据还是数据地址
+MyISAM 主索引 辅助索引 区别在于 主索引不可重复 辅助索引可重复
+InnoDB 数据文件本身就是索引 InnoDB插入效率更低，因为要维护记录的索引顺序
+
+InnoDB必须有主键，MyISAM可以没有
+InnoDB辅助索引存储的是主键的值，而MyISAM存储的数据地址
+
+InnoDB 辅助索引搜索需要两遍
+
+InnoDB支持事务，MyISAM不支持事务，InnoDB支持外键，MyISAM不支持外键，InnoDB聚集索引，MyISAM非聚集索引，InnoDB必须有主键，MyISAM可以没有主键，InnoDB不保存具体行数，MyISAM保存了记录行数
+InnoDB支持行锁，MyISAM不支持行锁
+
+避免索引失效
+最佳左前缀法则
+不在索引上进行计算
+范围列可以用到索引，但是它右边的列不可以
+尽量使用覆盖索引
+不等于无法使用索引
+is null is not null 无法使用索引
+like 以通配符开头，无法使用索引
+字符串不加引号导致索引失效
+or连接导致索引失效
+
+where having
+
+索引优点 -> 检索 排序
+索引缺点 -> 占空间 维护慢
+
+EXPLAIN 表的读取顺序 有哪些索引可以使用 有哪些索引实际被使用 表之间的引用 每张表有多少行被优化器查询
+
+EXPLAIN 慢查询日志 SHOW PROFILE
+
+行锁生效的前提是被Where锁住的列有索引，且索引不失效，否则由行锁升级为表锁
+
+InnoDB 行锁 事务 外键 聚合索引
+
+主从复制 -> master二进制文件记录操作 -> slave拷贝 -> 异步复制
+
+原子性 一致性 隔离性 持久性
+
+inner join left join right join full join
+
+EXPLAIN -> KEY
+
+强制使用索引 -> 两个from from表 from索引
+
+MYSQL默认隔离级别 -> 可重复读，不能避免幻读
+脏读 不可重复读 幻读
+读未提交 读已提交 可重复读 串行化
+
+RabbitMQ Erlang 原生并发
+
+RabbitMQ 消息确认机制
+
+RabbitMQ的持久化 队列持久化 消息持久化 Exchange持久化
+
+RabbitMQ的高可用 镜像队列
+
+Exchange BindingKey RoutingKey
+
+fanout direct topic headers
+
+kafka 高吞吐量 zookeeper
+
+topic partition
+
+partition 避免单机磁盘达到上限 提升并发性能
+
+kafka高可用 partition复制， partition leader 进行读写
+
+producer决定topic.partition
+
+random hash 轮询 最少活跃数优先 一致性hash
+
+消费者以group为单位
+
+StringBuilder
+asm 反射
+ThreadLocal
+IdentityHashMap
+sort field
+jdk
+
+kafka 拉 吞吐量 -> jms 推 实时
+
+kafka性能优化 producer consumer 批量操作 压缩消息
+
+rabbitMQ 长连接 push 消息确认机制 exchange binding routing
+kafka pull 无消息确认机制
+
+吞吐量 zero-copy 磁盘顺序读写 效率高
+rabbitMQ 内存和硬盘 可靠
+
+插入排序 n2 n 稳定
+冒泡排序 n2 n 稳定
+选择排序 n2 n2 不稳定
+快速排序 n2 nlogn 不稳定
+归并排序 nlogn nlogn 稳定
+堆排序 nlogn nlogn 不稳定
+希尔排序 n1.3 n 不稳定
+基数排序 稳定
+
+c(n,2n)-c(n-1,2n)
+
+n0 = n2+1
+
+provider consumer registry monitor container
+
+集群容错 failover failfast failsafe failback forking broadcast
+invoker -> directory -> route -> loadbalance -> invoker
+
+负载均衡 random 轮询 最少活跃数优先 一致性Hash
+
+泛化调用
+并发控制 executes actives
+连接控制 accepts connections
+
+
+StringBuilder
+asm 反射
+ThreadLocal buf
+IdentityHashMap
+sort field
+jdk
+
+服务降级 mock
+
+warmuptime warmupweight
+
+dubbo 单连接 长连接 NIO
+rmi 多连接 短连接
+hessian 多连接 短连接 传文件
+
+需求分析，概要设计，详细设计，设计数据库，PO，DAO，Service，Controller，Test
+
+@ResponseBody 是否交给视图解析器完成
+
+multi execute
+
+list 关注列表(用户id)，timeline（消息实体序列化）
+set 点赞（自动去重，用户id），已读（每个用户一个队列，已读的问题id加入其中），共同好友（交集，用户id）
+sortedset 排行榜
+hash 对象属性
+kv pv，超时kv（60秒内连续3次登录失败发邮件）
+
+
+Producer
+Consumer InitializingBean
+EventHandler
+EventType
+
+关单超时 重复来访 敏感词 外呼次数
+
+需求的不足
+回归
+确认
+配置
+善用工具
+耗时任务需要异步调用，锁限制
+
+StringBuilder
+asm 反射
+ThreadLocal buf
+IdentityHashMap
+sort field
+jdk
+
+Collections.sort Arrays.sort
+基本类型 ：双轴快速排序 -> 快速排序 -> 插入排序
+对象： userRequested -> 经典归并排序 -> TimSort（结合归并排序和插入排序）
+
+几乎有序，插入排序
+
+firstKey 最小
+lowerKey 严格小于
+floorKey 小于等于
+CeilingKey 大于等于
+higherKey 严格大于
+lastKey 最大
+
+
+

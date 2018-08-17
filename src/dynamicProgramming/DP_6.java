@@ -2,15 +2,15 @@ package dynamicProgramming;
 
 public class DP_6 {
 
-	private static final int rc = 1; //Ìæ»»´ú¼Û
-	private static final int dc = 1; //É¾³ı´ú¼Û
-	private static final int ic = 1; //²åÈë´ú¼Û
+	private static final int rc = 1; //æ›¿æ¢ä»£ä»·
+	private static final int dc = 1; //åˆ é™¤ä»£ä»·
+	private static final int ic = 1; //æ’å…¥ä»£ä»·
 	
 	/**
 	 * 
 	 * @param s1
 	 * @param s2
-	 * @return ½«s1±à¼­³És2µÄ×îĞ¡´ú¼Û
+	 * @return å°†s1ç¼–è¾‘æˆs2çš„æœ€å°ä»£ä»·
 	 */
 	public static int cost(String s1, String s2){
 		int[][] dp = new int[s1.length()+1][s2.length()+1];

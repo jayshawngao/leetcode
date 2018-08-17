@@ -5,54 +5,53 @@ import java.util.Collections;
 
 public class DP_3 {
 
-	/**
-	 * 
-	 * @param a Êý×é
-	 * @return Êý×éµÄ×î³¤µÝÔö×ÓÐòÁÐ
-	 */
-	public static int max(int[] a){
-		if(a==null||a.length==0) return 0;
-		int[] dp = new int[a.length];
-		dp[0]=1;
-		for(int i=1;i<dp.length;i++){
-			int max = 0;
-			for(int j=0;j<i;j++){
-				if(a[j]<a[i]){
-					max = Math.max(max, dp[j]);
-				}
-			}
-			dp[i] = max+1;
-		}
-		Arrays.sort(dp);
-		return dp[dp.length-1];
-	}
-	
-	
-	
-	// ºÍmaxµÄÇø±ðÔÚÓÚdp+1, ÎªÁË²âÊÔdp+1ÊÇ·ñÄÜ¼ò»¯±àÂë
-	public static int max2(int[] a){
-		if(a==null||a.length==0) return 0;
-		int[] dp = new int[a.length+1];
-		for(int i=0;i<dp.length;i++){
-			if(i==0){
-				dp[i]=0;
-			}else{
-				int max = 0;
-				// Õâ¸öforÑ­»·¿¼Ñé¶ÔdpÊý×éµÄÀí½â
-				// ×¢Òâdp[i]¶ÔÓ¦×Åa[i-1]´¦µÄ×î³¤µÝÔö×ÓÐòÁÐ
-				for(int j=0;j<i-1;j++){
-					if(a[j]<a[i-1]){
-						max = Math.max(max, dp[j+1]);
-					}
-				}
-				dp[i] = max+1;
-			}
-		}
-		Arrays.sort(dp);
-		return dp[dp.length-1];
-	}
-	public static void main(String[] args) {
-		System.out.println(max(new int[]{2,1,5,3,6,4,8,9,7}));
-		System.out.println(max2(new int[]{2,1,5,3,6,4,8,9,7}));
-	}
+    /**
+     * @param a æ•°ç»„
+     * @return æ•°ç»„çš„æœ€é•¿é€’å¢žå­åºåˆ—
+     */
+    public static int max(int[] a) {
+        if (a == null || a.length == 0) return 0;
+        int[] dp = new int[a.length];
+        dp[0] = 1;
+        for (int i = 1; i < dp.length; i++) {
+            int max = 0;
+            for (int j = 0; j < i; j++) {
+                if (a[j] < a[i]) {
+                    max = Math.max(max, dp[j]);
+                }
+            }
+            dp[i] = max + 1;
+        }
+        Arrays.sort(dp);
+        return dp[dp.length - 1];
+    }
+
+
+    // å’Œmaxçš„åŒºåˆ«åœ¨äºŽdp+1, ä¸ºäº†æµ‹è¯•dp+1æ˜¯å¦èƒ½ç®€åŒ–ç¼–ç ï¼Œç»“æžœæ˜¯å¹¶ä¸èƒ½
+    public static int max2(int[] a) {
+        if (a == null || a.length == 0) return 0;
+        int[] dp = new int[a.length + 1];
+        for (int i = 0; i < dp.length; i++) {
+            if (i == 0) {
+                dp[i] = 0;
+            } else {
+                int max = 0;
+                // è¿™ä¸ªforå¾ªçŽ¯è€ƒéªŒå¯¹dpæ•°ç»„çš„ç†è§£
+                // æ³¨æ„dp[i]å¯¹åº”ç€a[i-1]å¤„çš„æœ€é•¿é€’å¢žå­åºåˆ—
+                for (int j = 0; j < i - 1; j++) {
+                    if (a[j] < a[i - 1]) {
+                        max = Math.max(max, dp[j + 1]);
+                    }
+                }
+                dp[i] = max + 1;
+            }
+        }
+        Arrays.sort(dp);
+        return dp[dp.length - 1];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(max(new int[]{2, 1, 5, 3, 6, 4, 8, 9, 7}));
+        System.out.println(max2(new int[]{2, 1, 5, 3, 6, 4, 8, 9, 7}));
+    }
 }

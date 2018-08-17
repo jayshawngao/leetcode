@@ -23,16 +23,16 @@ public class BinaryTreeSerialization {
 	static class Serialization{
 		// 先序
 		public String preOrder(TreeNode root){
-			StringBuilder sb = new StringBuilder();
-			if(root==null){
-				sb.append("#!");
+				StringBuilder sb = new StringBuilder();
+				if(root==null){
+					sb.append("#!");
+					return sb.toString();
+				}else{
+					sb.append(root.val+"!");
+				}
+				sb.append(preOrder(root.left));
+				sb.append(preOrder(root.right));
 				return sb.toString();
-			}else{
-				sb.append(root.val+"!");
-			}
-			sb.append(preOrder(root.left));
-			sb.append(preOrder(root.right));
-			return sb.toString();
 		}
 		
 		// 按行遍历

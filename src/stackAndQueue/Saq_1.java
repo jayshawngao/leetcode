@@ -10,17 +10,17 @@ public class Saq_1<T extends Comparable<T>> {
 	
 	public Saq_1() {
 		stack1 = new Stack<>();
-		stack2 = new Stack<>();
+		stack2 = new Stack<>();// 存最小值
 	}
 	
 	public T pop(){
-		if(!stack2.isEmpty()&&stack2.peek()==stack1.peek()){
+		if(!stack2.isEmpty()&&stack2.peek()==stack1.peek()){// 当前弹出数等于stack2栈顶时，才从stack2中弹出该数
 			stack2.pop();
 		}
 		return stack1.pop();
 	}
 	public T push(T item){
-		if(stack2.isEmpty()||item.compareTo(stack2.peek())<=0){
+		if(stack2.isEmpty()||item.compareTo(stack2.peek())<=0){// 当item小于等于stack2栈顶时才推入
 			stack2.push(item);
 		}
 		return stack1.push(item);

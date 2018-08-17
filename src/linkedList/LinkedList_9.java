@@ -20,32 +20,27 @@ public class LinkedList_9 {
 	}
 
 	public Node isLoop2(Node head) {
-		Node slow = head;
-		Node quick = head;
-		while (quick != null) {
-			slow = slow.next;
-			if (quick.next == null) {
-				quick = null;
-				break;
-			} else {
-				quick = quick.next.next;
-			}
-			if (slow == quick) {
-				break;
-			}
-			
-		}
-		if(quick==null){
+		if (head == null) {
 			return null;
-		}else{
-			quick = head;
-			slow = slow.next; // slow也要前进一个否则答案不对的
-			while(slow!=quick){
-				slow = slow.next;
-				quick = quick.next.next;
+		}
+		Node fast = head;
+		Node slow = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+			if (fast == slow) {
+				break;
 			}
 		}
-		return slow;
+		if (fast == null || fast.next == null) {
+			return null;
+		}
+		fast = head;
+		while (fast != slow) {
+			fast = fast.next;
+			slow = slow.next;
+		}
+		return fast;
 	}
 	
 

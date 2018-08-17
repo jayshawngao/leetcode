@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class KMP {
 
-	// 计算next表
+	// 计算next表，next表的元素表示以当前位置结尾，最大的前缀后缀相同长度，这样比较失败时，可以直接跳到前缀处
 	public int[] next(String s) {
 		int[] next = new int[s.length()];
 		next[0] = 0;

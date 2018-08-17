@@ -2,22 +2,21 @@ package binarySearch;
 
 public class BinarySearch_6 {
 
-	// 没有考虑溢出
-	public int pow(int a, int b){
-		String binary = Integer.toBinaryString(b);
-		int res = 1;
-		int base = a;
-		for(int i=binary.length()-1;i>=0;i--){
-			if(binary.charAt(i)=='1'){
-				res *= base;
-			}
-			base *= base;
-		}
-		return res;
-	}
-	
-	
-	public static void main(String[] args) {
-		System.out.println(new BinarySearch_6().pow(10,5));
-	}
+    public int pow(int a, int b) {
+        int base = a, res = 1;
+        while (b != 0) {
+            int c = b & 1;
+            if (c == 1) {
+                res *= base;
+            }
+            base *= base;
+            b >>= 1;
+        }
+        return res;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(new BinarySearch_6().pow(2, 10));
+    }
 }

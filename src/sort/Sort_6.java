@@ -3,19 +3,27 @@ package sort;
 public class Sort_6 {
 
 	public int needSort(int[] a){
-		int max = Integer.MIN_VALUE;
-		int min = Integer.MAX_VALUE;
-		int right = 0;
-		int left = a.length-1;
-		for(int i=0; i<a.length;i++){
-			if(max<=a[i]) max=a[i];
-			else right=i;
+		int leftNeedSort = a.length;
+		int rightNeedSort = -1;
+		int lefMax = Integer.MIN_VALUE;
+		int rightMin = Integer.MAX_VALUE;
+		for (int i = 0; i < a.length; i++) {
+			if (lefMax > a[i]) {
+				rightNeedSort = i;
+			}
+			if (lefMax < a[i]) {
+				lefMax = a[i];
+			}
 		}
-		for(int i=a.length-1;i>=0;i--){
-			if(min>=a[i]) min=a[i];
-			else left=i;
+		for (int i = a.length - 1; i >= 0; i--) {
+			if (rightMin < a[i]) {
+				leftNeedSort = i;
+			}
+			if (rightMin > a[i]) {
+				rightMin = a[i];
+			}
 		}
-		return right-left+1;
+		return rightNeedSort - leftNeedSort + 1;
 	}
 	public static void main(String[] args) {
 		int[] a = new int[]{1,5,4,3,2,6,7};

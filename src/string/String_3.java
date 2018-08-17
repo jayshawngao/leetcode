@@ -43,7 +43,7 @@ public class String_3 {
 
 	public static void main(String[] args) {
 		String s1 = "1234";
-		String s2 ="3412";
+		String s2 ="4312";
 		System.out.println(new String_3().judge(s1, s2));
 	}
 }

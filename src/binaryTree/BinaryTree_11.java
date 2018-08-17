@@ -6,6 +6,9 @@ public class BinaryTree_11 {
 
 	// 寻找最大搜索子树
 	public TreeNode findTree(TreeNode root) {
+		if (root == null) {
+			return null;
+		}
 		return (TreeNode) help(root)[0];
 	}
 

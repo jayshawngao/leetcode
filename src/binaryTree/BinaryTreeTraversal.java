@@ -43,7 +43,6 @@ public class BinaryTreeTraversal {
 		}
 	}
 
-	// 优先选择这种方法进行先序遍历, 比较好理解
 	public void preOrder1(TreeNode root) {
 		if (root == null)
 			return;

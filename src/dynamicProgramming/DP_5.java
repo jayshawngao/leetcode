@@ -2,35 +2,55 @@ package dynamicProgramming;
 
 public class DP_5 {
 
-	/**
-	 * 
-	 * @param W ±³°ü³ĞÖØ
-	 * @param N ÎïÆ·×ÜÊı
-	 * @param v ÎïÆ·¼ÛÖµÊı×é
-	 * @param w ÎïÆ·ÖØÁ¿Êı×é
-	 * @return ±³°üËùÄÜ×°ÏÂµÄ×î´ó¼ÛÖµ
-	 */
-	public static int maxValue(int W, int N,  int[] v, int[] w){
-		// dp[i][j]±íÊ¾Ç°i¼şÎïÆ·, ²»³¬¹ıÖØÁ¿jÊ±µÄ×î´ó¼ÛÖµ
-		int[][] dp = new int[N+1][W+1];
-		for(int i=0;i<dp.length;i++){
-			for(int j=0;j<dp[0].length;j++){
-				if(i==0||j==0){
-					dp[i][j]=0;
-				}else{
-					if(j-w[i-1]>=0){
-						dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-w[i-1]]+v[i-1]);
-					}else{
-						dp[i][j]=dp[i-1][j];
-					}
-				}
-			}
-		}
-		return dp[dp.length-1][dp[0].length-1];
-		
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(maxValue(100,5,new int[]{92,22,87,46,90},new int[]{77,22,29,50,99}));
-	}
+    /**
+     * @param W èƒŒåŒ…æ‰¿é‡
+     * @param N ç‰©å“æ€»æ•°
+     * @param v ç‰©å“ä»·å€¼æ•°ç»„
+     * @param w ç‰©å“é‡é‡æ•°ç»„
+     * @return èƒŒåŒ…æ‰€èƒ½è£…ä¸‹çš„æœ€å¤§ä»·å€¼
+     */
+    public static int maxValue(int W, int N, int[] v, int[] w) {
+        // dp[i][j]è¡¨ç¤ºå‰iä»¶ç‰©å“, ä¸è¶…è¿‡é‡é‡jæ—¶çš„æœ€å¤§ä»·å€¼
+        int[][] dp = new int[N + 1][W + 1];
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                } else {
+                    if (j - w[i - 1] >= 0) {
+                        dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - w[i - 1]] + v[i - 1]);
+                    } else {
+                        dp[i][j] = dp[i - 1][j];
+                    }
+                }
+            }
+        }
+        return dp[dp.length - 1][dp[0].length - 1];
+
+    }
+
+    // è¿™ç§æ•°ç»„æ›´åŠ æ–¹ä¾¿[N][W + 1]ï¼Œå› ä¸ºw[], v[]å’Œdpçš„è¡Œèƒ½ä¸€ä¸€å¯¹åº”
+    public static int maxValue2(int W, int N, int[] v, int[] w) {
+        int[][] dp = new int[N][W + 1];
+        for (int i = 0; i < dp[0].length; i++) {
+            if (i >= w[0]) {
+                dp[0][i] = v[0];
+            }
+        }
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                if (j - w[i] >= 0) {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i]);
+                } else {
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[dp.length - 1][dp[0].length - 1];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(maxValue(100, 5, new int[]{92, 22, 87, 46, 90}, new int[]{77, 22, 29, 50, 99}));
+        System.out.println(maxValue2(100, 5, new int[]{92, 22, 87, 46, 90}, new int[]{77, 22, 29, 50, 99}));
+    }
 }

@@ -10,26 +10,32 @@ public class Sort {
 		a[j] = temp;
 	}
 
-	// 冒泡排序
+	// 改进的冒泡排序 最好时间复杂度O(n)
 	public void bubble(int[] a) {
 		for (int i = a.length - 1; i > 0; i--) {
+			boolean isSwap = false;
 			for (int j = 0; j < i; j++) {
 				if (a[j] > a[j + 1]) {
 					swap(a, j + 1, j);
+					isSwap = true;
 				}
+			}
+			if (!isSwap) {
+				return;
 			}
 		}
 	}
 
 	// 选择排序
 	public void select(int[] a) {
-		for (int i = 0; i < a.length; i++) {
-			int min = i;
-			for (int j = i; j < a.length; j++) {
-				if (a[j] < a[min])
-					min = j;
+		for (int i = a.length-1; i > 0; i--) {
+			int max = i;
+			for (int j = 0; j < i; j++) {
+				if (a[j] > a[max]) {
+					max = j;
+				}
 			}
-			swap(a, i, min);
+			swap(a, max, i);
 		}
 	}
 
@@ -46,7 +52,19 @@ public class Sort {
 	}
 
 	// 归并排序
-	private void merge(int[] a, int low, int mid, int high) {
+	public void merge(int[] a, int low, int high) {
+		if (low < high) {
+			int mid = (low + high) / 2;
+			// 对左边排序
+			merge(a, low, mid);
+			// 对右边排序
+			merge(a, mid + 1, high);
+			// 合并左右
+			help(a, low, mid, high);
+		}
+	}
+
+	private void help(int[] a, int low, int mid, int high) {
 		int[] temp = new int[high - low + 1];
 		int i = low;
 		int j = mid + 1;
@@ -68,19 +86,6 @@ public class Sort {
 		for (int k2 = 0; k2 < temp.length; k2++)
 			a[k2 + low] = temp[k2];
 	}
-
-	// 归并排序
-	public void sort(int[] a, int low, int high) {
-		if (low < high) {
-			int mid = (low + high) / 2;
-			// 对左边排序
-			sort(a, low, mid);
-			// 对右边排序
-			sort(a, mid + 1, high);
-			// 合并左右
-			merge(a, low, mid, high);
-		}
-	}
 	
 	// 快速排序
 	// 每次选择区间的最右一个数作为划分数, 免去了第一次交换
@@ -92,14 +97,15 @@ public class Sort {
 				swap(a, ++i, j); //只要小于划分数, 就和小于等于区间的下一个数进行交换
 			}
 		}
-		swap(a, ++i, high);  // 此时i指向划分数
+		swap(a, ++i, high);  // 此时i指向交换后的划分数
 		quick(a, low, i-1);
 		quick(a, i+1, high);
 	}
 
 	public static void main(String[] args) {
 		int[] a = new int[] { 7, 6, 5, 3, 4, 2, 1 };
-		new Sort().quick(a, 0, a.length-1);
+		new Sort().bubble(a);
+//		new Sort().select(a);
 		System.out.println(Arrays.toString(a));
 
 	}

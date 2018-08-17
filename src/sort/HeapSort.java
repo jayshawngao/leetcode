@@ -32,10 +32,8 @@ public class HeapSort {
     public int[] heapSort(int[] array){
         array = buildMaxHeap(array); //初始建堆，array[0]为第一趟值最大的元素
         for(int i=array.length-1;i>=1;i--){  
-            int temp = array[0];  //将堆顶元素和堆低元素交换，即得到当前最大元素正确的排序位置
-            array[0] = array[i];
-            array[i] = temp;
-            adjustDownToUp(array, 0,i);  //整理，将剩余的元素整理成堆
+            swap(array, i, 0);  //将堆顶元素和堆低元素交换，即得到当前最大元素正确的排序位置
+            adjustDownToUp(array, 0, i);  //整理，将剩余的元素整理成堆
         }
         return array;
     }
@@ -72,6 +70,12 @@ public class HeapSort {
         for(int i:array){
             System.out.print(i+" ");
         }
+    }
+
+    public void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
     
     public static void main(String args[]){
